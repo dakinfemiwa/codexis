@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Codexis
 
-## Getting Started
+**Repository intelligence through structural code analysis.**
 
-First, run the development server:
+Codexis is an open-source code analysis tool designed to understand the structure and relationships within software repositories.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Rather than treating a codebase as a collection of text files, Codexis builds towards a structured representation of the code — allowing relationships between files, functions, classes, imports, references, and dependencies to be analysed.
+
+The project uses **Tree-sitter** as its parsing foundation, with higher-level analysis built on top.
+
+> **Status:** Early development. Repository parsing and syntax-tree analysis are currently being implemented.
+
+## Why Codexis?
+
+As software projects grow, understanding how a change affects the rest of a codebase becomes increasingly difficult.
+
+Text search can tell you where something appears. Structural analysis can help explain **how those pieces of code are connected**.
+
+Codexis aims to make those relationships explicit.
+
+For example:
+
+```text
+UserService.createUser()
+        │
+        ├── validates User
+        ├── calls UserRepository
+        └── writes to Database
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This could eventually support questions such as:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+What does UserService.createUser() depend on?
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Where is UserRepository.save() used?
 
-## Learn More
+Which parts of the repository depend on this module?
 
-To learn more about Next.js, take a look at the following resources:
+What could be affected by changing this function?
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Status
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Codexis is under active development.
 
-## Deploy on Vercel
+The current focus is building the core parsing pipeline:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+Repository
+    ↓
+Source Files
+    ↓
+Tree-sitter
+    ↓
+Syntax Tree
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Further analysis capabilities will be built on this foundation.
